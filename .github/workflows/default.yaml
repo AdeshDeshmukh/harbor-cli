@@ -20,7 +20,10 @@ permissions:
 
 jobs:
   lint:
-    runs-on: ubuntu-latest
+    # The Dagger engine pinned in dagger.json crash-loops on the Docker 29
+    # daemon that ships with the ubuntu-26.04 runner image. Pin to the last
+    # known-good image until the engine is bumped.
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout repo
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -73,7 +76,8 @@ jobs:
           fi
 
   vulnerability-check:
-    runs-on: ubuntu-latest
+    # See the note on the lint job.
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout repo
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -181,7 +185,8 @@ jobs:
           fi
 
   test-code:
-    runs-on: ubuntu-latest
+    # See the note on the lint job.
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout repo
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
